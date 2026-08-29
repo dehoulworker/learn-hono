@@ -1,4 +1,4 @@
-# PetitBakery — Cloudflare Pages + Hono Workers
+# PetitBakery — Cloudflare Pages + Hono Workersx
 
 PetitBakery is a beginner-friendly bakery storefront you can run and study.
 
