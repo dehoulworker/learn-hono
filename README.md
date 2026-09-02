@@ -2,20 +2,39 @@
 
 PetitBakery is a beginner-friendly bakery storefront you can run and study.
 
-## Start the reference app
+## Quick start: frontend + backend
 
 ```bash
+node -e "require('node:fs').copyFileSync('.env.example', '.env')"
+npm install --prefix backend
 npm run check
 npm run start
 ```
 
-Then open `http://localhost:8788`. The command runs the Hono Worker at
-`http://localhost:8787` and serves `frontend/` at `http://localhost:8788`.
-The Worker loads the repository-root `.env` file through Wrangler. Stop both
-servers with `Ctrl-C`.
+From PowerShell, use:
 
-For a new checkout, start with `cp .env.example .env` and fill in the local
-secret values.
+```powershell
+Copy-Item .env.example .env
+npm install --prefix backend
+npm run check
+npm run start
+```
+
+Before starting, replace the `BETTER_AUTH_SECRET` and `RESEND_API_KEY`
+placeholders in `.env` with your local values. `BETTER_AUTH_SECRET` must be at
+least 32 characters; use a real Resend API key if you want verification and
+password-reset emails to work.
+
+Generate a fresh Better Auth secret with Node.js:
+
+```bash
+node -e "const fs=require('node:fs'),crypto=require('node:crypto'),p='.env'; let s=fs.readFileSync(p,'utf8'); s=s.replace(/^BETTER_AUTH_SECRET=.*$/m, 'BETTER_AUTH_SECRET='+crypto.randomBytes(32).toString('hex')); fs.writeFileSync(p,s)"
+```
+
+`npm run start` applies local D1 migrations, runs the Hono Worker at
+`http://localhost:8787`, and serves `frontend/` at `http://localhost:8788`.
+Open `http://localhost:8788` in your browser and stop both servers with
+`Ctrl-C`.
 
 ## Rebuild in four milestones
 
